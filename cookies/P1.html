@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>PlasmaStidio - Contador de Visitas</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var visitas = getCookie("visitas");
+      if (visitas === "") {
+        visitas = 1;
+        setCookie("visitas", visitas);
+      } else {
+        visitas = parseInt(visitas) + 1;
+        setCookie("visitas", visitas);
+      }
+
+      document.getElementById("contador").innerText = "Contador de Visitas: " + visitas;
+    });
+
+    function setCookie(nombre, valor) {
+      document.cookie = nombre + "=" + valor + "; path=/";
+    }
+
+    function getCookie(nombre) {
+      var name = nombre + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var cookies = decodedCookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+          cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) == 0) {
+          return cookie.substring(name.length, cookie.length);
+        }
+      }
+      return "";
+    }
+  </script>
+</head>
+<body>
+  <h1>PlasmaStidio</h1>
+  <p Has visitado esta página: id="contador"> veces</p>
+ 
+</body>
+</html>

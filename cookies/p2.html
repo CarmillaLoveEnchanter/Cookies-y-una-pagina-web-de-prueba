@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>PlasmaStidio - Gestión de Nombre</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      mostrarNombreAlmacenado();
+    });
+
+    function pedirNombre() {
+      var nuevoNombre = prompt("Por favor, ingresa tu nombre:");
+      setCookie("nombre", nuevoNombre);
+      mostrarNombreAlmacenado();
+    }
+
+    function borrarNombre() {
+      setCookie("nombre", "", -1); // Establece la cookie con una fecha de expiración en el pasado para eliminarla
+      mostrarNombreAlmacenado();
+    }
+
+    function modificarNombre() {
+      var nuevoNombre = prompt("Por favor, ingresa tu nuevo nombre:");
+      setCookie("nombre", nuevoNombre);
+      mostrarNombreAlmacenado();
+    }
+
+    function setCookie(nombre, valor, diasExpiracion) {
+      var fechaExpiracion = "";
+      if (diasExpiracion) {
+        var fecha = new Date();
+        fecha.setTime(fecha.getTime() + (diasExpiracion * 24 * 60 * 60 * 1000));
+        fechaExpiracion = "; expires=" + fecha.toUTCString();
+      }
+      document.cookie = nombre + "=" + valor + fechaExpiracion + "; path=/";
+    }
+
+    function getCookie(nombre) {
+      var name = nombre + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var cookies = decodedCookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+          cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) == 0) {
+          return cookie.substring(name.length, cookie.length);
+        }
+      }
+      return "";
+    }
+
+    function mostrarNombreAlmacenado() {
+      var nombre = getCookie("nombre");
+      var mensaje = nombre ? "Nombre almacenado actualmente: " + nombre : "";
+      document.getElementById("mensaje").innerText = mensaje;
+    }
+  </script>
+</head>
+<body>
+  <h1>PlasmaStidio</h1>
+  <div id="mensaje"></div>
+  <button onclick="pedirNombre()">Pedir Nombre</button>
+  <button onclick="borrarNombre()">Borrar Nombre</button>
+  <button onclick="modificarNombre()">Modificar Nombre</button>
+</body>
+</html>

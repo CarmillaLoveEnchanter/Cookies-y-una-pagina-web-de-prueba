@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Empresa Roba Cookies</title>
+</head>
+<body>
+  <h1>Empresa Roba Cookies</h1>
+  <p>El usuario con está id de cookie <span id="idCliente"></span> tiene estos cursos que le interesan:</p>
+  <ul id="cursosInteres">
+    <!-- Aquí se mostrarán los cursos de interés -->
+  </ul>
+
+  <script>
+    // Función para obtener el valor de una cookie
+    function getCookie(nombre) {
+      var name = nombre + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var cookies = decodedCookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+          cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) == 0) {
+          return cookie.substring(name.length, cookie.length);
+        }
+      }
+      return "";
+    }
+
+    // Al cargar la página, mostrar el id del cliente y los cursos seleccionados
+    document.addEventListener("DOMContentLoaded", function() {
+      var idCliente = Math.floor(Math.random() * 1000000); // Generar un ID de cliente aleatorio (solo para demostración)
+      document.getElementById("idCliente").innerText = idCliente;
+
+      var cursosSeleccionados = getCookie("cursoSeleccionado");
+      var cursosInteresElement = document.getElementById("cursosInteres");
+
+      if (cursosSeleccionados !== "") {
+        var cursos = cursosSeleccionados.split(',');
+        cursos.forEach(function(curso) {
+          var li = document.createElement("li");
+          li.appendChild(document.createTextNode(curso.trim()));
+          cursosInteresElement.appendChild(li);
+        });
+      } else {
+        cursosInteresElement.innerHTML = "<li>Ningún curso seleccionado.</li>";
+      }
+    });
+  </script>
+</body>
+</html>

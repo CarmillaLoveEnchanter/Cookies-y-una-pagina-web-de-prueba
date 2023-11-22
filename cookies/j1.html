@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejemplo de Cookie de Terceros</title>
+  <script>
+    // Función para establecer una cookie
+    function setCookie(nombre, valor, diasExpiracion) {
+      var fechaExpiracion = "";
+      if (diasExpiracion) {
+        var fecha = new Date();
+        fecha.setTime(fecha.getTime() + (diasExpiracion * 24 * 60 * 60 * 1000));
+        fechaExpiracion = "; expires=" + fecha.toUTCString();
+      }
+      document.cookie = nombre + "=" + valor + fechaExpiracion + "; path=/";
+    }
+
+    // Función para obtener el valor de una cookie
+    function getCookie(nombre) {
+      var name = nombre + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var cookies = decodedCookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') {
+          cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) == 0) {
+          return cookie.substring(name.length, cookie.length);
+        }
+      }
+      return "";
+    }
+
+    // Al cargar la página, establecer una cookie de terceros
+    document.addEventListener("DOMContentLoaded", function() {
+      setCookie("terceros-preferencias", "preferencias-de-usuario", 365);
+    });
+  </script>
+</head>
+<body>
+  <h1>PlasmaStidio.com</h1>
+  <p>Bienvenido a PlasmaStidio.com. Este sitio utiliza cookies de terceros para rastrear tus preferencias.</p>
+</body>
+</html>
