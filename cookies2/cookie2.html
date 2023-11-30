@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="cookie2.css">
+    <script src="cookie2.js"></script>
+    <title>Cookie 2 echa con JS</title>
+</head>
+<body>
+    <section class="cookies">
+        <h2 class="cookies__titulo">¿Aceptas nuestras Cookies?</h2>
+        <p class="cookies__texto">Usamos cookies para mejorar tu experiencia en la web.</p>
+        <div class="cookies__botones">
+            <button class="cookies__boton cookies__boton--no">No</button>
+            <button class="cookies__boton cookies__boton--si">Si</button> 
+        </div>
+    </section>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxxxx-1""></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-xxxxxxxx-1');
+    </script>
+</body>
+</html>
